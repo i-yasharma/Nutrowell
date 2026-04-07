@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutroWell - AI Student Meal Planner</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="/" class="logo">NutroWell</a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="#result-area">Latest Plan</a>
+            </div>
+            <a href="/" class="btn-primary-sm">Back</a>
+        </div>
+    </nav>
+
+    <div class="app">
+        <header class="hero">
+            <div class="hero-badge">AI Nutrition Engine</div>
+            <h1>Your Weekly <span style="color:var(--neon)">Fuel Plan</span></h1>
+            <p>Smart, budget-friendly nutrition tailored for your student life in India.</p>
+        </header>
+
+        <div class="steps-bar">
+            <div class="step-tab active" data-step="0">About<br>you</div>
+            <div class="step-tab" data-step="1">Schedule<br>& budget</div>
+            <div class="step-tab" data-step="2">Diet<br>& goals</div>
+            <div class="step-tab" data-step="3">Health<br>& more</div>
+            <div class="step-tab" data-step="4">Generate</div>
+        </div>
+
+        <!-- Step 0: About You -->
+        <div class="section active" id="step-0">
+            <div class="section-title">About you</div>
+            <div class="section-sub">Basic details to personalize your nutrition needs</div>
+            <div class="card">
+                <div class="field-grid">
+                    <div class="field"><label>Age</label><input type="number" id="age" placeholder="e.g. 20" min="10" max="35"></div>
+                    <div class="field"><label>Gender</label>
+                        <select id="gender"><option value="">Select</option><option>Male</option><option>Female</option><option>Non-binary / Other</option></select>
+                    </div>
+                    <div class="field"><label>Height (cm)</label><input type="number" id="height" placeholder="e.g. 165" min="100" max="220"></div>
+                    <div class="field"><label>Weight (kg)</label><input type="number" id="weight" placeholder="e.g. 60" min="30" max="150"></div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="subsection-label">Activity level</div>
+                <div class="tag-group" id="activity">
+                    <div class="tag" data-val="sedentary">Sedentary</div>
+                    <div class="tag" data-val="light">Lightly active</div>
+                    <div class="tag" data-val="moderate">Moderately active</div>
+                    <div class="tag" data-val="active">Very active</div>
+                </div>
+            </div>
+            <div class="nav-row"><div></div><button class="btn primary" onclick="goStep(1)">Next →</button></div>
+        </div>
+
+        <!-- Step 1: Schedule & Budget -->
+        <div class="section" id="step-1">
+            <div class="section-title">Schedule & budget</div>
+            <div class="section-sub">Tell us about your daily routine so meals fit your life</div>
+            <div class="card">
+                <div class="subsection-label">Institution type</div>
+                <div class="tag-group" id="inst-type">
+                    <div class="tag" data-val="school">School (6 hrs)</div>
+                    <div class="tag" data-val="college">College / University</div>
+                    <div class="tag" data-val="coaching">Coaching institute</div>
+                    <div class="tag" data-val="online">Online / Home study</div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="field-grid">
+                    <div class="field"><label>Classes start</label><input type="text" id="class-start" placeholder="e.g. 8:00 AM"></div>
+                    <div class="field"><label>Classes end</label><input type="text" id="class-end" placeholder="e.g. 2:30 PM"></div>
+                    <div class="field"><label>Travel time (one way)</label>
+                        <select id="travel"><option value="">Select</option><option>Less than 15 min</option><option>15–30 min</option><option>30–60 min</option><option>More than 1 hour</option></select>
+                    </div>
+                    <div class="field"><label>Monthly food budget (₹)</label><input type="number" id="budget" placeholder="e.g. 2000" min="500" max="15000"></div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="subsection-label">Meal breaks during day (select all you have)</div>
+                <div class="meal-timing" id="meal-breaks">
+                    <div class="meal-time-card" data-val="early-morning"><div class="dot"></div><div class="label">Early morning</div><div class="time">5–7am</div></div>
+                    <div class="meal-time-card" data-val="breakfast"><div class="dot"></div><div class="label">Breakfast</div><div class="time">7–9am</div></div>
+                    <div class="meal-time-card" data-val="mid-morning"><div class="dot"></div><div class="label">Mid-morning snack</div><div class="time">10–11am</div></div>
+                    <div class="meal-time-card" data-val="lunch"><div class="dot"></div><div class="label">Lunch</div><div class="time">12–2pm</div></div>
+                    <div class="meal-time-card" data-val="evening"><div class="dot"></div><div class="label">Evening snack</div><div class="time">4–6pm</div></div>
+                    <div class="meal-time-card" data-val="dinner"><div class="dot"></div><div class="label">Dinner</div><div class="time">7–9pm</div></div>
+                    <div class="meal-time-card" data-val="late-night"><div class="dot"></div><div class="label">Late night</div><div class="time">10pm+</div></div>
+                    <div class="meal-time-card" data-val="post-workout"><div class="dot"></div><div class="label">Post-workout</div><div class="time">variable</div></div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="subsection-label">Sleep schedule</div>
+                <div class="field-grid">
+                    <div class="field"><label>Bedtime</label><input type="text" id="bedtime" placeholder="e.g. 11:00 PM"></div>
+                    <div class="field"><label>Wake up time</label><input type="text" id="wakeup" placeholder="e.g. 6:30 AM"></div>
+                </div>
+            </div>
+            <div class="nav-row"><button class="btn" onclick="goStep(0)">← Back</button><button class="btn primary" onclick="goStep(2)">Next →</button></div>
+        </div>
+
+        <!-- Step 2: Diet & Goals -->
+        <div class="section" id="step-2">
+            <div class="section-title">Diet preferences & goals</div>
+            <div class="section-sub">What you eat and what you want to achieve</div>
+            <div class="card">
+                <div class="subsection-label">Diet type</div>
+                <div class="tag-group" id="diet-type">
+                    <div class="tag" data-val="veg">Pure vegetarian</div>
+                    <div class="tag" data-val="eggetarian">Eggetarian</div>
+                    <div class="tag" data-val="non-veg">Non-vegetarian</div>
+                    <div class="tag" data-val="vegan">Vegan</div>
+                    <div class="tag" data-val="jain">Jain</div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="subsection-label">Cuisine preferences (pick your favourites)</div>
+                <div class="tag-group" id="cuisine">
+                    <div class="tag" data-val="north-indian">North Indian</div>
+                    <div class="tag" data-val="south-indian">South Indian</div>
+                    <div class="tag" data-val="chinese">Chinese / Indo-Chinese</div>
+                    <div class="tag" data-val="street">Street food</div>
+                    <div class="tag" data-val="continental">Continental</div>
+                    <div class="tag" data-val="maharashtrian">Maharashtrian</div>
+                    <div class="tag" data-val="bengali">Bengali</div>
+                    <div class="tag" data-val="gujarati">Gujarati</div>
+                    <div class="tag" data-val="punjabi">Punjabi</div>
+                    <div class="tag" data-val="mughlai">Mughlai</div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="subsection-label">Primary goal</div>
+                <div class="tag-group" id="goal">
+                    <div class="tag amber" data-val="weight-loss">Lose weight</div>
+                    <div class="tag amber" data-val="weight-gain">Gain weight / muscle</div>
+                    <div class="tag amber" data-val="maintain">Maintain weight</div>
+                    <div class="tag amber" data-val="energy">Boost energy & focus</div>
+                    <div class="tag amber" data-val="gut-health">Improve gut health</div>
+                    <div class="tag amber" data-val="immunity">Strengthen immunity</div>
+                    <div class="tag amber" data-val="exam">Exam performance</div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="range-field">
+                    <div class="subsection-label">Daily water intake target</div>
+                    <div class="range-row">
+                        <input type="range" id="water" min="1" max="5" step="0.5" value="2.5">
+                        <span class="range-val"><span id="water-val">2.5</span>L</span>
+                    </div>
+                </div>
+            </div>
+            <div class="nav-row"><button class="btn" onclick="goStep(1)">← Back</button><button class="btn primary" onclick="goStep(3)">Next →</button></div>
+        </div>
+
+        <!-- Step 3: Health & More -->
+        <div class="section" id="step-3">
+            <div class="section-title">Health & restrictions</div>
+            <div class="section-sub">This helps us keep your plan safe and realistic</div>
+            <div class="card">
+                <div class="subsection-label">Food allergies (select if applicable)</div>
+                <div class="tag-group" id="allergies">
+                    <div class="tag danger" data-val="none">None</div>
+                    <div class="tag danger" data-val="gluten">Gluten</div>
+                    <div class="tag danger" data-val="dairy">Dairy / Lactose</div>
+                    <div class="tag danger" data-val="nuts">Tree nuts / Peanuts</div>
+                    <div class="tag danger" data-val="soy">Soy</div>
+                    <div class="tag danger" data-val="egg">Eggs</div>
+                    <div class="tag danger" data-val="shellfish">Shellfish / Seafood</div>
+                </div>
+                <div class="allergy-warn" id="allergy-warn" style="display:none">
+                    ⚠ Allergies noted — meals will strictly avoid these ingredients.
+                </div>
+            </div>
+            <div class="card">
+                <div class="subsection-label">Food dislikes (type or select)</div>
+                <div class="tag-group" id="dislikes">
+                    <div class="tag" data-val="bitter-gourd">Bitter gourd</div>
+                    <div class="tag" data-val="brinjal">Brinjal / Eggplant</div>
+                    <div class="tag" data-val="mushroom">Mushrooms</div>
+                    <div class="tag" data-val="onion">Onion / Garlic</div>
+                    <div class="tag" data-val="spicy">Very spicy food</div>
+                    <div class="tag" data-val="oily">Oily / fried food</div>
+                    <div class="tag" data-val="raw-salad">Raw salad</div>
+                    <div class="tag" data-val="milk">Plain milk</div>
+                </div>
+                <textarea id="dislike-custom" rows="2" placeholder="Anything else you dislike… (optional)" style="margin-top:8px"></textarea>
+            </div>
+            <div class="card">
+                <div class="subsection-label">Any health conditions? (for meal safety)</div>
+                <div class="tag-group" id="diseases">
+                    <div class="tag" data-val="none">None</div>
+                    <div class="tag" data-val="diabetes">Diabetes / Pre-diabetes</div>
+                    <div class="tag" data-val="bp">High blood pressure</div>
+                    <div class="tag" data-val="anemia">Anaemia / Iron deficiency</div>
+                    <div class="tag" data-val="thyroid">Thyroid issues</div>
+                    <div class="tag" data-val="ibs">IBS / Digestive issues</div>
+                    <div class="tag" data-val="pcos">PCOS / Hormonal</div>
+                    <div class="tag" data-val="acne">Acne / Skin issues</div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="subsection-label">Anything else we should know?</div>
+                <textarea id="extra-notes" rows="2" placeholder="e.g. I study till 2am, hostel kitchen closes at 9pm, I have a mess subscription…"></textarea>
+            </div>
+            <div class="nav-row"><button class="btn" onclick="goStep(2)">← Back</button><button class="btn primary" onclick="goStep(4)">Review →</button></div>
+        </div>
+
+        <!-- Step 4: Generate -->
+        <div class="section" id="step-4">
+            <div class="section-title">Ready to generate</div>
+            <div class="section-sub">Review your inputs and get your personalised plan</div>
+            <div class="card" id="summary-card">
+                <div id="summary-content" style="font-size:13px;color:var(--text-muted);line-height:2;">Fill in the steps above to see a summary here.</div>
+            </div>
+            <button class="btn-generate" id="gen-btn" onclick="generatePlan()">✦ Generate My Meal Plan</button>
+            <div class="nav-row"><button class="btn" onclick="goStep(3)">← Back</button></div>
+        </div>
+
+        <!-- Result -->
+        <div class="result-area" id="result-area">
+            <div class="card" id="loading-card" style="display:none">
+                <div style="text-align:center;padding:1rem 0;font-size:13px;color:var(--text-muted);">Creating your personalised plan…</div>
+                <div class="loading-dots"><span></span><span></span><span></span></div>
+            </div>
+            <div id="result-content"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
